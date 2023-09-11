@@ -2,6 +2,10 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
-chapters:
-- file: notebook
+root: index
+parts:
+- caption: Introductions
+  chapters:
+  - file: intro/overview
+  - file: intro/correlation
+  - file: intro/calibration

@@ -1,4 +1,4 @@
-# Introduction
+# EHT Data Processing
 
 This is a [Jupyter Book](https://jupyterbook.org/) for
 [Event Horizon Telescope (EHT)](https://eventhorizontelescope.org/)

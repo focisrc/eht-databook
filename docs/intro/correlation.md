@@ -68,7 +68,7 @@ s1 = np.sin(2 * pi * t)
 s2 = np.sin(2 * pi * t - 1.2345)
 ```
 
-Plotting the two signals, 
+Plotting the two signals,
 
 ```{code-cell} ipython3
 plt.plot(t[:20], s1[:20], label=r'$s_1$')
@@ -102,7 +102,8 @@ X = np.array([np.mean(s1 * np.roll(s2,-tau)) for tau in range(0,100_000)])
 plt.plot(X[:20])
 ```
 
-Applying the Fourier transform, we obtain the visibility as a function of freqnecy:
+Applying the Fourier transform, we obtain the visibility as a function
+of freqnecy:
 
 ```{code-cell} ipython3
 XF = np.fft.fft(X)
@@ -110,7 +111,8 @@ XF = np.fft.fft(X)
 plt.semilogy(abs(XF))
 ```
 
-Pulling out the peak, the phase in the visibility is identical to the lag we put in: 
+Pulling out the peak, the phase in the visibility is identical to the
+lag we put in:
 
 ```{code-cell} ipython3
 n = np.argmax(abs(XF[:len(XF)//2]))
@@ -123,15 +125,27 @@ print(np.angle(V))
 
 ## FX Correlator
 
+Using the convolution theory, it is easy to show
+\begin{align}
+  \widehat{X(f, g)}_k = \hat{f}_k^* \hat{g}_k.
+\end{align}
+Hence, instead of first computing the cross correlation in time domain
+and then applying the Fourier transform, we can perform the Fourier
+transform first, and then compute the *element-wise* products in
+frequency domain.
+Correlators that use this methods are referred to as FX correlators,
+which can we easily implement in python:
+
 ```{code-cell} ipython3
 S1 = np.fft.fft(s1)
 S2 = np.fft.fft(s2)
 FX = np.conj(S1) * S2
-```
 
-```{code-cell} ipython3
 plt.semilogy(abs(FX))
 ```
+
+Pulling out the peak, the phase in the visibility is identical to the
+lag we put in, just like in the XF correlator:
 
 ```{code-cell} ipython3
 n = np.argmax(abs(FX[:len(FX)//2]))

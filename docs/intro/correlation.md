@@ -14,15 +14,45 @@ kernelspec:
 
 # Correlation
 
+The correlation step takes signals from a pair of telescopes and
+computes the Fourier transform of their cross correlations.
+A significant property of such an operation is to remove the noise
+from the visibility data.
+
+Let $s$ be the sky signal from some radio source.
+When the sky signal arrives at telescopes 1 and 2, the recorded
+signals $s_1$ and $s_2$, although may have a time delay due to
+geometric effects, are correlated.
+Let $n_1$ and $n_2$ be noise at each of the telescopes, the cross
+correlation is
+\begin{align}
+  C &= \langle (s_1 + n_1) (s_2 + n_2) \rangle \\
+    &= \langle s_1 s_2 \rangle
+     + \langle s_1 n_2 \rangle
+     + \langle s_2 n_1 \rangle
+     + \langle n_1 n_2 \rangle.
+\end{align}
+All the terms other than first term should vanishes.
+
+By taking the Fourier transform of such a cross correlation, we obtain
+also the spectral information of the signal.
+
+In this chapter, we will create synthetic very long baseline
+interferometry (VLBI) data and demostrate how cross-correlation can
+remove the noise.
+We will also show the XF and FX correlators are mathematically
+identical, although the FX correlator is computationally more
+efficient.
+
+To get started, we first import the standard python packages:
+
 ```{code-cell} ipython3
 import numpy as np
 from math import pi
 from matplotlib import pyplot as plt
 ```
 
-## No Delay Rate
-
-### Signal Generation
+## Signal Generation
 
 ```{code-cell} ipython3
 t  = np.linspace(0, 10_000, num=100_000)
@@ -35,7 +65,7 @@ plt.plot(t[:20], s1[:20])
 plt.plot(t[:20], s2[:20])
 ```
 
-### XF Correlator
+## XF Correlator
 
 ```{code-cell} ipython3
 print(np.roll(np.arange(10), 1)) # <- this is convolution
@@ -68,7 +98,7 @@ print(abs(V))
 print(np.angle(V))
 ```
 
-### FX Correlator
+## FX Correlator
 
 ```{code-cell} ipython3
 S1 = np.fft.fft(s1)
@@ -90,7 +120,7 @@ print(abs(V))
 print(np.angle(V))
 ```
 
-### Introducing Noise
+## Introducing Noise
 
 ```{code-cell} ipython3
 n1 = np.random.normal(scale=1, size=100_000)

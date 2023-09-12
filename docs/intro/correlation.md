@@ -54,43 +54,66 @@ from matplotlib import pyplot as plt
 
 ## Signal Generation
 
+We consider monochromatic radio wave at unit frequency.
+
+Using `numpy`, we create a time array `t` and then generate the
+recorded signals `s1` and `s2` at the two telescopes.
+
+The signal at telescope 2 has a lag of $1.2345/2\pi$ unit time compared
+to telescope 1.
+
 ```{code-cell} ipython3
 t  = np.linspace(0, 10_000, num=100_000)
 s1 = np.sin(2 * pi * t)
-s2 = np.sin(2 * pi * t + 0.123)
+s2 = np.sin(2 * pi * t - 1.2345)
 ```
 
+Plotting the two signals, 
+
 ```{code-cell} ipython3
-plt.plot(t[:20], s1[:20])
-plt.plot(t[:20], s2[:20])
+plt.plot(t[:20], s1[:20], label=r'$s_1$')
+plt.plot(t[:20], s2[:20], label=r'$s_2$')
+plt.legend()
 ```
 
 ## XF Correlator
 
-```{code-cell} ipython3
-print(np.roll(np.arange(10), 1)) # <- this is convolution
-print(np.roll(np.arange(10),-1)) # <- this is correlation
-```
+Cross correlation is defined by:
+\begin{align}
+  X(f, g)(\tau) = \int f^*(t) g(t + \tau) dt = \int f^*(t - \tau) g(t) dt,
+\end{align}
+where $^*$ indicates complex conjugate.
+
+For VLBI, we only care about the discrete version of this.
+Hence we can replace $g(t + \tau)$ by `np.roll()`:
 
 ```{code-cell} ipython3
-x = [np.mean(np.roll(s1,-tau) * s2) for tau in range(100_000)] # warning on convention
+tau = 1
+
+print(np.roll(np.arange(10), tau)) # <- this is convolution
+print(np.roll(np.arange(10),-tau)) # <- this is correlation
 ```
 
-```{code-cell} ipython3
-plt.plot(x[:20])
-```
+The cross correlation is simply:
 
 ```{code-cell} ipython3
-XF = np.fft.fft(x)
+X = np.array([np.mean(s1 * np.roll(s2,-tau)) for tau in range(0,100_000)])
+
+plt.plot(X[:20])
 ```
 
+Applying the Fourier transform, we obtain the visibility as a function of freqnecy:
+
 ```{code-cell} ipython3
+XF = np.fft.fft(X)
+
 plt.semilogy(abs(XF))
 ```
 
-```{code-cell} ipython3
-n = np.argmax(abs(XF))
+Pulling out the peak, the phase in the visibility is identical to the lag we put in: 
 
+```{code-cell} ipython3
+n = np.argmax(abs(XF[:len(XF)//2]))
 V = XF[n]
 
 print(n)
@@ -103,7 +126,7 @@ print(np.angle(V))
 ```{code-cell} ipython3
 S1 = np.fft.fft(s1)
 S2 = np.fft.fft(s2)
-FX = S1 * np.conj(S2) # warning on convention
+FX = np.conj(S1) * S2
 ```
 
 ```{code-cell} ipython3
@@ -111,8 +134,7 @@ plt.semilogy(abs(FX))
 ```
 
 ```{code-cell} ipython3
-n = np.argmax(abs(FX))
-
+n = np.argmax(abs(FX[:len(FX)//2]))
 V = FX[n]
 
 print(n)
@@ -135,7 +157,7 @@ plt.plot(s2 + n2)
 ```{code-cell} ipython3
 S1 = np.fft.fft(s1 + n1)
 S2 = np.fft.fft(s2 + n2)
-FX = S1 * np.conj(S2) # warning on convention
+FX = np.conj(S1) * S2 # warning on convention
 ```
 
 ```{code-cell} ipython3
@@ -143,8 +165,7 @@ plt.semilogy(abs(FX))
 ```
 
 ```{code-cell} ipython3
-n = np.argmax(abs(FX))
-
+n = np.argmax(abs(FX[:len(FX)//2]))
 V = FX[n]
 
 print(n)

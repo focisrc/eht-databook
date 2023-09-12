@@ -59,8 +59,8 @@ We consider monochromatic radio wave at unit frequency.
 Using `numpy`, we create a time array `t` and then generate the
 recorded signals `s1` and `s2` at the two telescopes.
 
-The signal at telescope 2 has a lag of $1.2345/2\pi$ unit time compared
-to telescope 1.
+The signal at telescope 2 has a lag of $1.2345/2\pi$ unit time
+compared to telescope 1.
 
 ```{code-cell} ipython3
 t  = np.linspace(0, 10_000, num=100_000)
@@ -158,8 +158,10 @@ print(np.angle(V))
 
 ## Introducing Noise
 
-We argued at the beginning that cross correlation removes noise from the data.
-To demostrate this, let's introduce noise in our simple python codes with a signal-to-noise ratio at unity.
+We argued at the beginning that cross correlation removes noise from
+the data.
+To demostrate this, let's introduce noise in our simple python codes
+with a signal-to-noise ratio at unity.
 
 ```{code-cell} ipython3
 n1 = np.random.normal(scale=np.sqrt(0.5), size=100_000)
@@ -172,7 +174,9 @@ plt.plot(s1 + n1)
 plt.plot(s2 + n2)
 ```
 
-Computing the visibility (spectrum) using the FX Correlator, we immediate see the noise floor is almost 4 orders of magnitude lower than the signal.
+Computing the visibility (spectrum) using the FX Correlator, we
+immediate see the noise floor is almost 4 orders of magnitude lower
+than the signal.
 
 ```{code-cell} ipython3
 S1 = np.fft.rfft(s1 + n1)

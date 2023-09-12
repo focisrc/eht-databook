@@ -106,7 +106,7 @@ Applying the Fourier transform, we obtain the visibility as a function
 of freqnecy:
 
 ```{code-cell} ipython3
-XF = np.fft.fft(X)
+XF = np.fft.rfft(X)
 
 plt.semilogy(abs(XF))
 ```
@@ -115,7 +115,7 @@ Pulling out the peak, the phase in the visibility is identical to the
 lag we put in:
 
 ```{code-cell} ipython3
-n = np.argmax(abs(XF[:len(XF)//2]))
+n = np.argmax(abs(XF))
 V = XF[n]
 
 print(n)
@@ -137,8 +137,8 @@ Correlators that use this methods are referred to as FX correlators,
 which can we easily implement in python:
 
 ```{code-cell} ipython3
-S1 = np.fft.fft(s1)
-S2 = np.fft.fft(s2)
+S1 = np.fft.rfft(s1)
+S2 = np.fft.rfft(s2)
 FX = np.conj(S1) * S2
 
 plt.semilogy(abs(FX))
@@ -148,7 +148,7 @@ Pulling out the peak, the phase in the visibility is identical to the
 lag we put in, just like in the XF correlator:
 
 ```{code-cell} ipython3
-n = np.argmax(abs(FX[:len(FX)//2]))
+n = np.argmax(abs(FX))
 V = FX[n]
 
 print(n)
@@ -175,8 +175,8 @@ plt.plot(s2 + n2)
 Computing the visibility (spectrum) using the FX Correlator, we immediate see the noise floor is almost 4 orders of magnitude lower than the signal.
 
 ```{code-cell} ipython3
-S1 = np.fft.fft(s1 + n1)
-S2 = np.fft.fft(s2 + n2)
+S1 = np.fft.rfft(s1 + n1)
+S2 = np.fft.rfft(s2 + n2)
 FX = np.conj(S1) * S2
 
 plt.semilogy(abs(FX))
@@ -185,7 +185,7 @@ plt.semilogy(abs(FX))
 And the error in the phase is at percentage level.
 
 ```{code-cell} ipython3
-n = np.argmax(abs(FX[:len(FX)//2]))
+n = np.argmax(abs(FX))
 V = FX[n]
 
 print(n)

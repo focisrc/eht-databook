@@ -158,25 +158,31 @@ print(np.angle(V))
 
 ## Introducing Noise
 
-```{code-cell} ipython3
-n1 = np.random.normal(scale=1, size=100_000)
-n2 = np.random.normal(scale=1, size=100_000)
-```
+We argued at the beginning that cross correlation removes noise from the data.
+To demostrate this, let's introduce noise in our simple python codes with a signal-to-noise ratio at unity.
 
 ```{code-cell} ipython3
+n1 = np.random.normal(scale=np.sqrt(0.5), size=100_000)
+n2 = np.random.normal(scale=np.sqrt(0.5), size=100_000)
+
+print('SNR =', np.sum(s1*s1)/np.sum(n1*n1))
+print('SNR =', np.sum(s2*s2)/np.sum(n2*n2))
+
 plt.plot(s1 + n1)
 plt.plot(s2 + n2)
 ```
 
+Computing the visibility (spectrum) using the FX Correlator, we immediate see the noise floor is almost 4 orders of magnitude lower than the signal.
+
 ```{code-cell} ipython3
 S1 = np.fft.fft(s1 + n1)
 S2 = np.fft.fft(s2 + n2)
-FX = np.conj(S1) * S2 # warning on convention
-```
+FX = np.conj(S1) * S2
 
-```{code-cell} ipython3
 plt.semilogy(abs(FX))
 ```
+
+And the error in the phase is at percentage level.
 
 ```{code-cell} ipython3
 n = np.argmax(abs(FX[:len(FX)//2]))

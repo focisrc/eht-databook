@@ -48,7 +48,7 @@ To get started, we first import the standard python packages:
 
 ```{code-cell} ipython3
 import numpy as np
-from math import pi
+from math import pi, ceil
 from matplotlib import pyplot as plt
 ```
 
@@ -195,4 +195,56 @@ V = FX[n]
 print(n)
 print(abs(V))
 print(np.angle(V))
+```
+
+## Chunked Correlation
+
+In practice, correlators do not correlate all the data in a scan all
+at once.
+In stead, they divide the signal into multiple chunks, correlate each
+chunk, and create a time series of visibility.
+Such a time series can then be averaged later to incrase the
+signal-to-noise ratio.
+
+To demonstrate such process, let's choose a chunk size of 1000,
+perform FX correlation over each chunk, and plot all of the resulting
+visibilities as function of frequency.
+
+```{code-cell} ipython3
+nc = 1000
+Nc = int(ceil(len(s1) / nc) * nc)
+S1 = np.fft.rfft(np.pad(s1+n1, (0, Nc-len(s1))).reshape(Nc//nc, nc))
+S2 = np.fft.rfft(np.pad(s2+n2, (0, Nc-len(s1))).reshape(Nc//nc, nc))
+FX = np.conj(S1) * S2
+
+for fx in FX:
+    plt.semilogy(abs(fx))
+```
+
+We may also look at only the "reference frequency" and plot the
+amplitude and phase as function of time:
+
+```{code-cell} ipython3
+n = np.argmax(abs(FX[0]))
+V = FX[:,n]
+
+print(n)
+
+fig, (ax0, ax1) = plt.subplots(2,1, sharex=True)
+fig.tight_layout()
+
+ax0.plot(abs(V))
+ax0.set_ylim(0, 300_000)
+
+ax1.plot(np.angle(V))
+ax1.set_ylim(-pi, pi)
+```
+
+We can also perform both the coherence and incoherence averaging of
+the data:
+
+```{code-cell} ipython3
+plt.semilogy(abs(np.mean(FX, axis=0)), label='coherence averaging')
+plt.semilogy(np.mean(abs(FX), axis=0), label='incoherence averaging')
+plt.legend()
 ```

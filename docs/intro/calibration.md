@@ -79,6 +79,53 @@ ax2.plot(t[-20:], s2[-20:])
 ax2.legend()
 ```
 
+## Correlating the Signals
+
+Using `chunked_FX()`, we can compute the visibility.
+
+It has a "spectral" line at `freqnecy == 100` because the signal is
+still monochromatic.
+
+```{code-cell} ipython3
+FX = chunked_FX(s1, s2)
+
+plt.imshow(abs(FX), origin='lower')
+plt.xlabel('frequency')
+plt.ylabel('time')
+```
+
+Focusing in our band at $\nu = 100$, it is easy to see the phase drift
+away from a stable value.
+
+```{code-cell} ipython3
+vis = FX[:,100]
+
+fig, (ax0, ax1) = plt.subplots(2,1, sharex=True)
+plt.subplots_adjust(hspace=0)
+
+ax0.plot(abs(vis))
+ax0.set_ylim(0, 300_000)
+
+ax1.plot(np.angle(vis))
+ax1.set_ylim(-pi, pi)
+ax1.set_xlabel('time')
+```
+
+This phase drift affects coherence average.
+When we average over long time scale, the coherencely averaged
+amplitude drops, as shown in the following figure.
+This is the reason incoherence averages are used sometimes.
+
+```{code-cell} ipython3
+coh_avgs   = [abs(np.mean(vis[:i])) for i in range(1, 100+1)]
+incoh_avgs = [np.mean(abs(vis[:i])) for i in range(1, 100+1)]
+
+plt.plot(coh_avgs,   label='Coherence averages')
+plt.plot(incoh_avgs, label='Incoherence averages')
+plt.ylim(0, 300_000)
+plt.xlabel('Averaging time')
+```
+
 ## Add Delay Rate
 
 $\Delta\phi(\nu,t) = \phi_0 + \frac{\delta\phi}{\delta\nu}\Delta\nu + \frac{\delta\phi}{\delta t}\Delta t$
@@ -86,38 +133,3 @@ $\Delta\phi(\nu,t) = \phi_0 + \frac{\delta\phi}{\delta\nu}\Delta\nu + \frac{\del
 Last term is delay rate.
 
 $\Delta\phi_{12}(t) = \phi_{12,0} + (\frac{\partial\phi_1}{\partial t} - \frac{\partial\phi_2}{\partial t})\Delta t$
-
-```{code-cell} ipython3
-plt.semilogy(abs(FX[10_000-1000:10_000+1000]))
-```
-
-```{code-cell} ipython3
-plt.plot(np.angle(FX[10_000-1000:10_000+1000]))
-```
-
-```{code-cell} ipython3
-V = FX[10_000]
-
-print(abs(V))
-print(np.angle(V))
-```
-
-```{code-cell} ipython3
-S1 = np.fft.fft((s1).reshape(100,1000),axis=1)
-S2 = np.fft.fft((s2).reshape(100,1000),axis=1)
-FX = S1 * np.conj(S2) # warning on convention
-```
-
-```{code-cell} ipython3
-for i in range(100):
-    plt.semilogy(abs(FX[i,:]))
-```
-
-```{code-cell} ipython3
-for i in range(100):
-    plt.plot(np.angle(FX[i,100-10:100+10]))
-```
-
-```{code-cell} ipython3
-
-```

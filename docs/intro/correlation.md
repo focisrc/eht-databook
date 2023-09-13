@@ -26,7 +26,7 @@ geometric effects, are correlated.
 Let $n_1$ and $n_2$ be noise at each of the telescopes, the cross
 correlation is
 \begin{align}
-  C &= \langle (s_1 + n_1) (s_2 + n_2) \rangle \\
+  X &= \langle (s_1 + n_1) (s_2 + n_2) \rangle \\
     &= \langle s_1 s_2 \rangle
      + \langle s_1 n_2 \rangle
      + \langle s_2 n_1 \rangle
@@ -214,7 +214,7 @@ visibilities as function of frequency.
 nc = 1000
 Nc = int(ceil(len(s1) / nc) * nc)
 S1 = np.fft.rfft(np.pad(s1+n1, (0, Nc-len(s1))).reshape(Nc//nc, nc))
-S2 = np.fft.rfft(np.pad(s2+n2, (0, Nc-len(s1))).reshape(Nc//nc, nc))
+S2 = np.fft.rfft(np.pad(s2+n2, (0, Nc-len(s2))).reshape(Nc//nc, nc))
 FX = np.conj(S1) * S2
 
 for fx in FX:

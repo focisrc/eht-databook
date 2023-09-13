@@ -60,7 +60,7 @@ define $d(t)$ and $r(t)$ and apply them to the signal for the second
 station.
 
 ```{code-cell} ipython3
-d  = lambda t: 1e-3 * t/len(t) + 1
+d  = lambda t: 1e+3 * t/len(t) + 1
 r  = lambda t: 1e-3 * t/len(t) + 1
 
 s1 = np.sin(2 * pi * t)

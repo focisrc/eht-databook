@@ -104,9 +104,11 @@ fig, (ax0, ax1) = plt.subplots(2,1, sharex=True)
 plt.subplots_adjust(hspace=0)
 
 ax0.plot(abs(vis))
+ax0.set_ylabel('Amplitude')
 ax0.set_ylim(0, 300_000)
 
 ax1.plot(np.angle(vis))
+ax1.set_ylabel('Phase')
 ax1.set_ylim(-pi, pi)
 ax1.set_xlabel('time')
 ```
@@ -124,6 +126,7 @@ plt.plot(coh_avgs,   label='Coherence averages')
 plt.plot(incoh_avgs, label='Incoherence averages')
 plt.ylim(0, 300_000)
 plt.xlabel('Averaging time')
+plt.legend()
 ```
 
 ## Fringe-Fitting
@@ -160,7 +163,7 @@ Rp  = R[np.argmax(abs(Vis))]
 print(Rp)
 
 plt.plot(R, abs(Vis))
-plt.axvline(Rp, color='C1')
+plt.axvline(Rp, color='r', linestyle=':')
 ```
 
 ```{code-cell} ipython3

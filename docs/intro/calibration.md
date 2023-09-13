@@ -151,3 +151,33 @@ HOPS perform fringe fitting for each baseline independently, so
 effectively it is fitting for the terms
 $(\partial\phi_1/\partial\nu - \partial\phi_2/\partial\nu)$ and
 $(\partial\phi_1/\partial t  - \partial\phi_2/\partial t )$.
+
+```{code-cell} ipython3
+Vis = np.fft.fftshift(np.fft.fft(vis))
+R   = np.fft.fftshift(np.fft.fftfreq(100))
+Rp  = R[np.argmax(abs(Vis))]
+
+print(Rp)
+
+plt.plot(R, abs(Vis))
+plt.axvline(Rp, color='C1')
+```
+
+```{code-cell} ipython3
+viscal = vis * np.exp(-2j * pi * Rp * np.arange(len(vis)))
+
+plt.plot(np.angle(vis),    label='correlated')
+plt.plot(np.angle(viscal), label='calibrated')
+plt.legend()
+```
+
+```{code-cell} ipython3
+vis_avgs    = [abs(np.mean(vis[:i]))    for i in range(1, 100+1)]
+viscal_avgs = [abs(np.mean(viscal[:i])) for i in range(1, 100+1)]
+
+plt.plot(vis_avgs,    label='Averaged correlated data')
+plt.plot(viscal_avgs, label='Averaged calibrated data')
+plt.ylim(0, 300_000)
+plt.xlabel('Averaging time')
+plt.legend()
+```

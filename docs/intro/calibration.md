@@ -34,7 +34,8 @@ to higher signal-to-noise data.
 To get a sense on how this works, let's set up our numerical
 experiment.
 We again need to import the standard python packages.
-We also turn fix the noise realizations and put our correlator in a function.
+We also turn fix the noise realizations and put our correlator in a
+function.
 
 ```{code-cell} ipython3
 import numpy as np
@@ -52,6 +53,32 @@ def chunked_FX(s1, s2, n=1000):
     return np.conj(S1) * S2
 ```
 
+## Adding Delay and Delay Rate
+
+To visualize how the delay and delay rate affect the visibility, we
+define $d(t)$ and $r(t)$ and apply them to the signal for the second
+station.
+
+```{code-cell} ipython3
+d  = lambda t: 1e-3 * t/len(t) + 1
+r  = lambda t: 1e-3 * t/len(t) + 1
+
+s1 = np.sin(2 * pi * t)
+s2 = np.sin(2 * pi * r(t) * (t + 0.123 / (2 * pi) * d(t)))
+
+fig, (ax0, ax1, ax2) = plt.subplots(1,3, sharey=True, figsize=(12,4))
+plt.subplots_adjust(wspace=0)
+
+ax0.plot(t[:20], s1[:20])
+ax0.plot(t[:20], s2[:20])
+ax1.plot(t[50_000-10:50_000+10], s1[50_000-10:50_000+10])
+ax1.plot(t[50_000-10:50_000+10], s2[50_000-10:50_000+10])
+ax2.plot(t[-20:], s1[-20:])
+ax2.plot(t[-20:], s2[-20:])
+
+ax2.legend()
+```
+
 ## Add Delay Rate
 
 $\Delta\phi(\nu,t) = \phi_0 + \frac{\delta\phi}{\delta\nu}\Delta\nu + \frac{\delta\phi}{\delta t}\Delta t$
@@ -59,24 +86,6 @@ $\Delta\phi(\nu,t) = \phi_0 + \frac{\delta\phi}{\delta\nu}\Delta\nu + \frac{\del
 Last term is delay rate.
 
 $\Delta\phi_{12}(t) = \phi_{12,0} + (\frac{\partial\phi_1}{\partial t} - \frac{\partial\phi_2}{\partial t})\Delta t$
-
-```{code-cell} ipython3
-r  = lambda t: 1e-6 * t + 1
-t  = np.linspace(0, 10_000, num=100_000)
-s1 = np.sin(2 * pi * r(t) * t)
-s2 = np.sin(2 * pi * r(t) * t + 0.123)
-```
-
-```{code-cell} ipython3
-n1 = np.random.normal(scale=1, size=100_000)
-n2 = np.random.normal(scale=1, size=100_000)
-```
-
-```{code-cell} ipython3
-S1 = np.fft.fft(s1 + n1)
-S2 = np.fft.fft(s2 + n2)
-FX = S1 * np.conj(S2) # warning on convention
-```
 
 ```{code-cell} ipython3
 plt.semilogy(abs(FX[10_000-1000:10_000+1000]))

@@ -126,10 +126,28 @@ plt.ylim(0, 300_000)
 plt.xlabel('Averaging time')
 ```
 
-## Add Delay Rate
+## Fringe-Fitting
 
-$\Delta\phi(\nu,t) = \phi_0 + \frac{\delta\phi}{\delta\nu}\Delta\nu + \frac{\delta\phi}{\delta t}\Delta t$
+The idea behind fringe-fitting is that we can expand the phase of an
+arriving signal in terms of frequency and phase
+\begin{align}
+  \Delta\phi(\nu,t) \approx \phi_0 + \frac{\partial\phi}{\partial\nu}\Delta\nu + \frac{\partial\phi}{\partial t}\Delta t,
+\end{align}
+where $\phi_0$ is the phase error,
+$\partial\phi/\partial\nu$ is the delay, and
+$\partial\phi/\partial t$ is the (delay) rate.
+Any process that estimate the delay and rate is considered
+fringe-fitting.
 
-Last term is delay rate.
+For phase in the visibility, the idea is the same,
+\begin{align}
+  \Delta\phi_{12}(\nu, t)
+  = \phi_{1,0} - \phi_{2,0}
+  + (\frac{\partial\phi_1}{\partial\nu} - \frac{\partial\phi_2}{\partial\nu})\Delta\nu
+  + (\frac{\partial\phi_1}{\partial t } - \frac{\partial\phi_2}{\partial t })\Delta t,
+\end{align}
 
-$\Delta\phi_{12}(t) = \phi_{12,0} + (\frac{\partial\phi_1}{\partial t} - \frac{\partial\phi_2}{\partial t})\Delta t$
+HOPS perform fringe fitting for each baseline independently, so
+effectively it is fitting for the terms
+$(\partial\phi_1/\partial\nu - \partial\phi_2/\partial\nu)$ and
+$(\partial\phi_1/\partial t  - \partial\phi_2/\partial t )$.

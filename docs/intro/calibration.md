@@ -14,10 +14,42 @@ kernelspec:
 
 # Calibration
 
+The visibility data obtained by correlation contains systematic
+errors.
+Many of them shows up as delays, which translate to phase errors in
+visibility.
+Source of delays include:
+
+* Water vapor in troposphere
+* Electron content in Ionosphere
+* Instruments
+* Clock inaccuracy
+* ..
+* Thermal noise
+
+Fringe-fitting is a major calibration step to remove the delay and
+delay rates in the visibility data so they can be coherencely averaged
+to higher signal-to-noise data.
+
+To get a sense on how this works, let's set up our numerical
+experiment.
+We again need to import the standard python packages.
+We also turn fix the noise realizations and put our correlator in a function.
+
 ```{code-cell} ipython3
 import numpy as np
-from math import pi
+from math import pi, ceil
 from matplotlib import pyplot as plt
+
+t  = np.linspace(0, 10_000, num=100_000)
+n1 = np.random.normal(scale=1, size=100_000)
+n2 = np.random.normal(scale=1, size=100_000)
+
+def chunked_FX(s1, s2, n=1000):
+    N  = int(ceil(len(s1) / n))
+    S1 = np.fft.rfft(np.pad(s1+n1, (0, N*n-len(s1))).reshape(N, n))
+    S2 = np.fft.rfft(np.pad(s2+n2, (0, N*n-len(s2))).reshape(N, n))
+    return np.conj(S1) * S2
 ```
 
 ## Add Delay Rate

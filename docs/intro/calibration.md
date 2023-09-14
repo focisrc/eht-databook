@@ -68,14 +68,12 @@ s2 = np.sin(2 * pi * r(t) * (t + 0.123 / (2 * pi) * d(t)))
 
 fig, (ax0, ax1, ax2) = plt.subplots(1,3, sharey=True, figsize=(12,4))
 plt.subplots_adjust(wspace=0)
-
 ax0.plot(t[:20], s1[:20])
 ax0.plot(t[:20], s2[:20])
 ax1.plot(t[50_000-10:50_000+10], s1[50_000-10:50_000+10])
 ax1.plot(t[50_000-10:50_000+10], s2[50_000-10:50_000+10])
-ax2.plot(t[-20:], s1[-20:])
-ax2.plot(t[-20:], s2[-20:])
-
+ax2.plot(t[-20:], s1[-20:], label=r'$s_1$')
+ax2.plot(t[-20:], s2[-20:], label=r'$s_1$')
 ax2.legend()
 ```
 

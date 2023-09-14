@@ -148,10 +148,33 @@ For phase in the visibility, the idea is the same,
   + (\frac{\partial\phi_1}{\partial t } - \frac{\partial\phi_2}{\partial t })\Delta t,
 \end{align}
 
-HOPS perform fringe fitting for each baseline independently, so
+HOPS performs fringe fitting for each baseline independently, so
 effectively it is fitting for the terms
 $(\partial\phi_1/\partial\nu - \partial\phi_2/\partial\nu)$ and
 $(\partial\phi_1/\partial t  - \partial\phi_2/\partial t )$.
+
+In principle, we may use $\chi^2$-fitting to fit a straight line to
+the phase, and de-rotate the visibility using such a fit.
+In practice, however, because phase is a circular (or directional)
+quantity, it is non-trivial to write a $\chi^2$-fitting method that
+can work for arbitrary number of phase wraps.
+
+Fortunately, Fourier transform has an interesting property that is
+useful for fringe fitting.
+Consider a function $f(t)$ and its Fourier transform $\hat{F}_\nu$.
+When shifted by $t_0$ in time, the phase of the Fourier coefficient is
+subjected to a linear rotation.
+This can be easily proved.
+Let $g(t) = f(t - t_0)$ and $\hat{G}_\nu$ be its Fourier transform,
+\begin{align}
+  \hat{G}_\nu
+  &= \int g(t) e^{-2\pi\nu t} dt \\
+  &= \int f(t - t_0) e^{-2\pi\nu t} dt \\
+  &= \int f(t') e^{-2\pi\nu (t' + t_0)} dt'
+   = \hat{F}_\nu e^{-2\pi\nu t_0}.
+\end{align}
+Therefore, it is possible to identify the linear part of phase drift
+by solving for a shift in the Fourier transform of the visibility.
 
 ```{code-cell} ipython3
 Vis = np.fft.fftshift(np.fft.fft(vis))

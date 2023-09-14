@@ -176,24 +176,36 @@ Let $g(t) = f(t - t_0)$ and $\hat{G}_\nu$ be its Fourier transform,
 Therefore, it is possible to identify the linear part of phase drift
 by solving for a shift in the Fourier transform of the visibility.
 
+Here, we will remove the rate in our synthetic data.
+We first perform Fourier transform of our visibility.
+The `fftshift()` is not essential---it simply help plotting.
+
 ```{code-cell} ipython3
 Vis = np.fft.fftshift(np.fft.fft(vis))
 R   = np.fft.fftshift(np.fft.fftfreq(100))
-Rp  = R[np.argmax(abs(Vis))]
+Rp  = R[np.argmax(abs(Vis))] # location of the peak in `Vis`
 
 print(Rp)
 
 plt.plot(R, abs(Vis))
+plt.xlabel('spectral domain')
+plt.ylabel('amplitude')
 plt.axvline(Rp, color='r', linestyle=':')
 ```
+
+With `Rp`, we can derotate the phase in the visiblity:
 
 ```{code-cell} ipython3
 viscal = vis * np.exp(-2j * pi * Rp * np.arange(len(vis)))
 
 plt.plot(np.angle(vis),    label='correlated')
 plt.plot(np.angle(viscal), label='calibrated')
+plt.xlabel('time')
+plt.ylabel('phase')
 plt.legend()
 ```
+
+Without the linear trend, we can perform coherence average for much longer time.
 
 ```{code-cell} ipython3
 vis_avgs    = [abs(np.mean(vis[:i]))    for i in range(1, 100+1)]

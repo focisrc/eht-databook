@@ -512,7 +512,7 @@ station.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f0ffc6a9d90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd8a8e0fc10&gt;
 </pre></div>
 </div>
 <img alt="../_images/9831cdb74cbd8eddd59096f577589514573118a9fe3cdba4531f3f636337320c.png" src="../_images/9831cdb74cbd8eddd59096f577589514573118a9fe3cdba4531f3f636337320c.png" />
@@ -538,7 +538,7 @@ still monochromatic.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;time&#39;)
 </pre></div>
 </div>
-<img alt="../_images/584c81a40778b706feab28d53827e6c103f5df7b1f66b661f3f6f6d99d363e64.png" src="../_images/584c81a40778b706feab28d53827e6c103f5df7b1f66b661f3f6f6d99d363e64.png" />
+<img alt="../_images/0a46e6183ddac7c1d660e642d800d2486fc2df840528ac9ee3d378e88a82d302.png" src="../_images/0a46e6183ddac7c1d660e642d800d2486fc2df840528ac9ee3d378e88a82d302.png" />
 </div>
 </div>
 <p>Focusing in our band at <span class="math notranslate nohighlight">\(\nu = 100\)</span>, it is easy to see the phase drift
@@ -565,7 +565,7 @@ away from a stable value.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;time&#39;)
 </pre></div>
 </div>
-<img alt="../_images/8d63b9238961c166cac7bbf6f6ad8ecf1b5e81064f8b65fcc1f0e99872625b29.png" src="../_images/8d63b9238961c166cac7bbf6f6ad8ecf1b5e81064f8b65fcc1f0e99872625b29.png" />
+<img alt="../_images/3682247058ae8980c4d91f45597f42a708bc3648b047fe6b90fa6f57ea1dd24a.png" src="../_images/3682247058ae8980c4d91f45597f42a708bc3648b047fe6b90fa6f57ea1dd24a.png" />
 </div>
 </div>
 <p>This phase drift affects coherence average.
@@ -586,10 +586,10 @@ This is the reason incoherence averages are used sometimes.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f0ffc2c6710&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd8a865e1d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/0a4d0e27734c254e87d9afedf7233a7b019eb8ff8cec8665720b9025cc9bd9f1.png" src="../_images/0a4d0e27734c254e87d9afedf7233a7b019eb8ff8cec8665720b9025cc9bd9f1.png" />
+<img alt="../_images/d0712789e264126606c67ea8e9bd0bc3d248627c16837e03d7f3b3a67423b496.png" src="../_images/d0712789e264126606c67ea8e9bd0bc3d248627c16837e03d7f3b3a67423b496.png" />
 </div>
 </div>
 </section>
@@ -597,8 +597,8 @@ This is the reason incoherence averages are used sometimes.</p>
 <h2>Fringe-Fitting<a class="headerlink" href="#fringe-fitting" title="Permalink to this heading">#</a></h2>
 <p>The idea behind fringe-fitting is that we can expand the phase of an
 arriving signal in terms of frequency and phase</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0473be76-6a2e-4eff-a341-172f63bd2b67">
-<span class="eqno">(4)<a class="headerlink" href="#equation-0473be76-6a2e-4eff-a341-172f63bd2b67" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6f10a8ac-ae0c-46f6-87c9-3d50004212ea">
+<span class="eqno">(4)<a class="headerlink" href="#equation-6f10a8ac-ae0c-46f6-87c9-3d50004212ea" title="Permalink to this equation">#</a></span>\[\begin{align}
   \Delta\phi(\nu,t) \approx \phi_0 + \frac{\partial\phi}{\partial\nu}\Delta\nu + \frac{\partial\phi}{\partial t}\Delta t,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi_0\)</span> is the phase error,
@@ -607,8 +607,8 @@ arriving signal in terms of frequency and phase</p>
 Any process that estimate the delay and rate is considered
 fringe-fitting.</p>
 <p>For phase in the visibility, the idea is the same,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-40463c16-3c75-42ce-8d82-bd470c636a53">
-<span class="eqno">(5)<a class="headerlink" href="#equation-40463c16-3c75-42ce-8d82-bd470c636a53" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dc53da6e-250d-42e1-95a0-ae64f325a946">
+<span class="eqno">(5)<a class="headerlink" href="#equation-dc53da6e-250d-42e1-95a0-ae64f325a946" title="Permalink to this equation">#</a></span>\[\begin{align}
   \Delta\phi_{12}(\nu, t)
   = \phi_{1,0} - \phi_{2,0}
   + (\frac{\partial\phi_1}{\partial\nu} - \frac{\partial\phi_2}{\partial\nu})\Delta\nu
@@ -630,8 +630,8 @@ When shifted by <span class="math notranslate nohighlight">\(t_0\)</span> in tim
 subjected to a linear rotation.
 This can be easily proved.
 Let <span class="math notranslate nohighlight">\(g(t) = f(t - t_0)\)</span> and <span class="math notranslate nohighlight">\(\hat{G}_\nu\)</span> be its Fourier transform,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-41bb2adb-4683-4f5a-a301-0f51bb4c044f">
-<span class="eqno">(6)<a class="headerlink" href="#equation-41bb2adb-4683-4f5a-a301-0f51bb4c044f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-02f13a82-2438-4fc0-ae58-9247ca723b00">
+<span class="eqno">(6)<a class="headerlink" href="#equation-02f13a82-2438-4fc0-ae58-9247ca723b00" title="Permalink to this equation">#</a></span>\[\begin{align}
   \hat{G}_\nu
   &amp;= \int g(t) e^{-2\pi\nu t} dt \\
   &amp;= \int f(t - t_0) e^{-2\pi\nu t} dt \\
@@ -662,10 +662,10 @@ The <code class="docutils literal notranslate"><span class="pre">fftshift()</spa
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7f0feff3ebd0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fd8a84f2790&gt;
 </pre></div>
 </div>
-<img alt="../_images/ab657358843235ba45526324976820e9b5fcbba7efd137cc63cebf5173188036.png" src="../_images/ab657358843235ba45526324976820e9b5fcbba7efd137cc63cebf5173188036.png" />
+<img alt="../_images/f747261e8ef31f51880f466ed8fd02ef1169d831204eb48592d946aea54cf1d1.png" src="../_images/f747261e8ef31f51880f466ed8fd02ef1169d831204eb48592d946aea54cf1d1.png" />
 </div>
 </div>
 <p>With <code class="docutils literal notranslate"><span class="pre">Rp</span></code>, we can derotate the phase in the visiblity:</p>
@@ -682,10 +682,10 @@ The <code class="docutils literal notranslate"><span class="pre">fftshift()</spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f0fecd79d90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd8a84de1d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/ac8baa31467093752644bf99c7d966f8e7589a1803c96de6ff062a274cee3857.png" src="../_images/ac8baa31467093752644bf99c7d966f8e7589a1803c96de6ff062a274cee3857.png" />
+<img alt="../_images/553d1ea47792fc3fcd6a3f8c2ec622bed69a0161e279cfa8bbeee63727dd8a1e.png" src="../_images/553d1ea47792fc3fcd6a3f8c2ec622bed69a0161e279cfa8bbeee63727dd8a1e.png" />
 </div>
 </div>
 <p>Without the linear trend, we can perform coherence average for much longer time.</p>
@@ -703,10 +703,10 @@ The <code class="docutils literal notranslate"><span class="pre">fftshift()</spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f0fecc01d90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd8a85ae1d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/db4500cd62ad19d046ad52178c514db5b69a7a11724d6b48659dc14e72573dbe.png" src="../_images/db4500cd62ad19d046ad52178c514db5b69a7a11724d6b48659dc14e72573dbe.png" />
+<img alt="../_images/151d95a7953defec645a0a66be8ead16b57b819455646e118dc0ecd044188366.png" src="../_images/151d95a7953defec645a0a66be8ead16b57b819455646e118dc0ecd044188366.png" />
 </div>
 </div>
 </section>

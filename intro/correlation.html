@@ -459,8 +459,8 @@ signals <span class="math notranslate nohighlight">\(s_1\)</span> and <span clas
 geometric effects, are correlated.
 Let <span class="math notranslate nohighlight">\(n_1\)</span> and <span class="math notranslate nohighlight">\(n_2\)</span> be noise at each of the telescopes, the cross
 correlation is</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eb6ddf84-13ea-4f0f-93c9-6f77cf9e4907">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eb6ddf84-13ea-4f0f-93c9-6f77cf9e4907" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a20b39b1-5e7e-424f-9be4-bdd920aa591a">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a20b39b1-5e7e-424f-9be4-bdd920aa591a" title="Permalink to this equation">#</a></span>\[\begin{align}
   X &amp;= \langle (s_1 + n_1) (s_2 + n_2) \rangle \\
     &amp;= \langle s_1 s_2 \rangle
      + \langle s_1 n_2 \rangle
@@ -512,7 +512,7 @@ compared to telescope 1.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f3ce160ff90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd2d413d490&gt;
 </pre></div>
 </div>
 <img alt="../_images/d9855c3d4cd12903f0e70529c119e823624bc278e391030a3314e9e1f5140bfa.png" src="../_images/d9855c3d4cd12903f0e70529c119e823624bc278e391030a3314e9e1f5140bfa.png" />
@@ -522,8 +522,8 @@ compared to telescope 1.</p>
 <section id="xf-correlator">
 <h2>XF Correlator<a class="headerlink" href="#xf-correlator" title="Permalink to this heading">#</a></h2>
 <p>Cross correlation is defined by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-06852493-eef6-43d6-afa5-9c34b05d301d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-06852493-eef6-43d6-afa5-9c34b05d301d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-13929265-e570-47b3-8109-45666e87a21f">
+<span class="eqno">(2)<a class="headerlink" href="#equation-13929265-e570-47b3-8109-45666e87a21f" title="Permalink to this equation">#</a></span>\[\begin{align}
   X(f, g)(\tau) = \int f^*(t) g(t + \tau) dt = \int f^*(t - \tau) g(t) dt,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(^*\)</span> indicates complex conjugate.</p>
@@ -555,7 +555,7 @@ Hence we can replace <span class="math notranslate nohighlight">\(g(t + \tau)\)<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3ce164b710&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd2c0f54b10&gt;]
 </pre></div>
 </div>
 <img alt="../_images/48e1fa3c3dc5c14898f9be5a833eeaeeead42dd2763e640675bcf18f3f3029eb.png" src="../_images/48e1fa3c3dc5c14898f9be5a833eeaeeead42dd2763e640675bcf18f3f3029eb.png" />
@@ -572,7 +572,7 @@ of freqnecy:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3ce1b2ba50&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd2e6bca110&gt;]
 </pre></div>
 </div>
 <img alt="../_images/7187b5466d748ea3c83fd55134a897a9df97e4f39fc818f151184e44e581d410.png" src="../_images/7187b5466d748ea3c83fd55134a897a9df97e4f39fc818f151184e44e581d410.png" />
@@ -603,8 +603,8 @@ lag we put in:</p>
 <section id="fx-correlator">
 <h2>FX Correlator<a class="headerlink" href="#fx-correlator" title="Permalink to this heading">#</a></h2>
 <p>Using the convolution theory, it is easy to show</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dc6901e3-5b07-46bb-8c5c-f9fad1318453">
-<span class="eqno">(3)<a class="headerlink" href="#equation-dc6901e3-5b07-46bb-8c5c-f9fad1318453" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ec445d93-bbdd-44d5-9f8a-a4daca654a2e">
+<span class="eqno">(3)<a class="headerlink" href="#equation-ec445d93-bbdd-44d5-9f8a-a4daca654a2e" title="Permalink to this equation">#</a></span>\[\begin{align}
   \widehat{X(f, g)}_k = \hat{f}_k^* \hat{g}_k.
 \end{align}\]</div>
 <p>Hence, instead of first computing the cross correlation in time domain
@@ -624,7 +624,7 @@ which can we easily implement in python:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3ce12e66d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd2c0cd2390&gt;]
 </pre></div>
 </div>
 <img alt="../_images/06067e5712098fc6eefb2896d12089000afe25a4bf91c1eb5063458506fc90d4.png" src="../_images/06067e5712098fc6eefb2896d12089000afe25a4bf91c1eb5063458506fc90d4.png" />
@@ -672,14 +672,14 @@ with a signal-to-noise ratio at unity.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SNR = 0.9985502793212226
-SNR = 1.0085815629086643
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SNR = 1.0012509978669208
+SNR = 0.996011025288854
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3ce11d9c50&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd2c0ec6490&gt;]
 </pre></div>
 </div>
-<img alt="../_images/93fc026126af67a20b00ab02b5f4f063c240a2d91cb2dde7ad6747b18ecdedd1.png" src="../_images/93fc026126af67a20b00ab02b5f4f063c240a2d91cb2dde7ad6747b18ecdedd1.png" />
+<img alt="../_images/712c54fdf03c7f83fb57fe4534176643b15ab261872e57031d167586b01d3bac.png" src="../_images/712c54fdf03c7f83fb57fe4534176643b15ab261872e57031d167586b01d3bac.png" />
 </div>
 </div>
 <p>Computing the visibility (spectrum) using the FX Correlator, we
@@ -696,10 +696,10 @@ than the signal.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f3ce11f1250&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd2c0f79510&gt;]
 </pre></div>
 </div>
-<img alt="../_images/b0b97c569f5883f6d70c9fcdfdc334d69c9c4d561cf14013e5d2b02cfe4c825a.png" src="../_images/b0b97c569f5883f6d70c9fcdfdc334d69c9c4d561cf14013e5d2b02cfe4c825a.png" />
+<img alt="../_images/a3d2ed7c640ea2c33c6503f171aede39402566dfceb0027009832695d0996bc0.png" src="../_images/a3d2ed7c640ea2c33c6503f171aede39402566dfceb0027009832695d0996bc0.png" />
 </div>
 </div>
 <p>And the error in the phase is at percentage level.</p>
@@ -716,8 +716,8 @@ than the signal.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10000
-2421286601.002458
--1.2383414085305056
+2410263075.7967467
+-1.2395945032485192
 </pre></div>
 </div>
 </div>
@@ -748,7 +748,7 @@ visibilities as function of frequency.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/69531205a0cf6cb83da773584c6c5045b31090231e7e428323b325bd5cb0ff28.png" src="../_images/69531205a0cf6cb83da773584c6c5045b31090231e7e428323b325bd5cb0ff28.png" />
+<img alt="../_images/4f5d56db73d376e9e83c06d9b6bbc7089758b9ff7578f8f1ffab43b9e30b2541.png" src="../_images/4f5d56db73d376e9e83c06d9b6bbc7089758b9ff7578f8f1ffab43b9e30b2541.png" />
 </div>
 </div>
 <p>We may also look at only the “reference frequency” and plot the
@@ -778,7 +778,7 @@ amplitude and phase as function of time:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-3.141592653589793, 3.141592653589793)
 </pre></div>
 </div>
-<img alt="../_images/dc78ac8b4eb2fe50ecde3cd815964f2c8104a32d58d2e4a8ab63f6992e9bf6ac.png" src="../_images/dc78ac8b4eb2fe50ecde3cd815964f2c8104a32d58d2e4a8ab63f6992e9bf6ac.png" />
+<img alt="../_images/babd1fa41928447ed5736dc2a590b52df4231166afcc84a7b29a88e0ccd0a013.png" src="../_images/babd1fa41928447ed5736dc2a590b52df4231166afcc84a7b29a88e0ccd0a013.png" />
 </div>
 </div>
 <p>We can also perform both the coherence and incoherence averaging of
@@ -792,10 +792,10 @@ the data:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f3ce0ce51d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd2c09b09d0&gt;
 </pre></div>
 </div>
-<img alt="../_images/90854c427078c7f5b3ae92e463b6b69756d93d64cc15d9f347acf2849b616f73.png" src="../_images/90854c427078c7f5b3ae92e463b6b69756d93d64cc15d9f347acf2849b616f73.png" />
+<img alt="../_images/6c38f4dfd0067d24e6ad0cc6d38e8f5d4913aef389a2008e6deecce5179e703a.png" src="../_images/6c38f4dfd0067d24e6ad0cc6d38e8f5d4913aef389a2008e6deecce5179e703a.png" />
 </div>
 </div>
 </section>

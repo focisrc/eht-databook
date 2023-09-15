@@ -19,7 +19,7 @@ parse:
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
-    targetname: eht-book.tex
+    targetname: eht-databook.tex
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:
@@ -27,7 +27,7 @@ bibtex_bibfiles:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/focisrc/eht-book  # Online location of your book
+  url: https://github.com/focisrc/eht-databook  # Online location of your book
   path_to_book: docs  # Optional path to your book, relative to the repository root
   branch: master  # Which branch of the repository should be used when creating links (optional)
 

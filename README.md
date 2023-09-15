@@ -18,5 +18,5 @@ Jupytext to create a pair notebook:
 ```
 jupytext-3.10 --sync --to ipynb [chapter].md
 ```
-All changed made the notebook will be automatically synced to the MyST
+All changed made to the notebook will be automatically synced to the MyST
 markdown file.

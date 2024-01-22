@@ -16,7 +16,13 @@ Markdown called
 To edit the materials locally as Jupyter Notebooks, simply use
 Jupytext to create a pair notebook:
 ```
-jupytext-3.10 --sync --to ipynb [chapter].md
+jupytext --sync --to ipynb [chapter].md
 ```
 All changed made to the notebook will be automatically synced to the MyST
 markdown file.
+
+To build the Jupyter Book locally, run
+```
+cd eht-databook
+jupyter-book build docs
+```

@@ -462,8 +462,8 @@ We focus on estimating the time structure function for each of the pixel in such
 <h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
 <p>Suppose we work with a discrete time series <span class="math notranslate nohighlight">\(f_i = f(t_i)\)</span>.
 Let <span class="math notranslate nohighlight">\(\tau_k = t_j - t_i &gt; 0\)</span> be a lag, the (2nd-order) discrete structure function is defined by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1b85ef22-2425-41ae-9f18-1addf5e42016">
-<span class="eqno">(7)<a class="headerlink" href="#equation-1b85ef22-2425-41ae-9f18-1addf5e42016" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5e64749c-2fe8-4d8e-bffb-4a25079be458">
+<span class="eqno">(7)<a class="headerlink" href="#equation-5e64749c-2fe8-4d8e-bffb-4a25079be458" title="Permalink to this equation">#</a></span>\[\begin{align}
 SF(\tau_k) = \sum_{i,j}\frac{[f_i - f_j]^2}{n_k},
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(n_k\)</span> is the number of different <span class="math notranslate nohighlight">\(i,j\)</span> pairs.
@@ -507,7 +507,7 @@ To see this, we can simply plot the histogram of the lags.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e3f1ed90&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc62cb65010&gt;]
 </pre></div>
 </div>
 <img alt="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" src="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" />
@@ -524,10 +524,10 @@ To see this, we can simply plot the histogram of the lags.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e3f6c710&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc62c656050&gt;]
 </pre></div>
 </div>
-<img alt="../_images/fb4e8e11b9fc45cc527ad1120270a4c3b345a11b994bd529f537bb54b6f226ff.png" src="../_images/fb4e8e11b9fc45cc527ad1120270a4c3b345a11b994bd529f537bb54b6f226ff.png" />
+<img alt="../_images/5c1af6e8006f2c7bc4d9a28b12a7d461418b0fa763068365c9cc1a68788854b4.png" src="../_images/5c1af6e8006f2c7bc4d9a28b12a7d461418b0fa763068365c9cc1a68788854b4.png" />
 </div>
 </div>
 </section>
@@ -554,7 +554,7 @@ As a result, if we need to sample more than 6 different frequecies, there must b
 Length: 72
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e0d0c710&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc62cb66190&gt;]
 </pre></div>
 </div>
 <img alt="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" src="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" />
@@ -573,10 +573,37 @@ This suggests for a length <span class="math notranslate nohighlight">\(N\)</spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e0d858d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc62c4d9050&gt;]
 </pre></div>
 </div>
 <img alt="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" src="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" />
+</div>
+</div>
+<p>In fact, if we care about the sampling in log-frequency, the gaps do not really matter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">countlog</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="n">last</span>  <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">tau</span>   <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">last</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n_tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">last</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tj</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tj</span> <span class="o">&gt;</span> <span class="n">ti</span><span class="p">:</span>
+                <span class="n">tauk</span> <span class="o">=</span> <span class="n">tj</span> <span class="o">-</span> <span class="n">ti</span>
+                <span class="n">n_tau</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">tauk</span><span class="p">))]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span>
+
+<span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span> <span class="o">=</span> <span class="n">countlog</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc62c3def90&gt;]
+</pre></div>
+</div>
+<img alt="../_images/7d4d357c1edf1851182d1c5ac86a7d6604bd0e39424840b120a8b0189101bbd0.png" src="../_images/7d4d357c1edf1851182d1c5ac86a7d6604bd0e39424840b120a8b0189101bbd0.png" />
 </div>
 </div>
 </section>

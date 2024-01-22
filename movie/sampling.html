@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'movie/sampling';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -412,7 +414,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -428,6 +432,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-periodic-function">Non-Periodic Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#golomb-s-ruler">Golomb’s Ruler</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -444,6 +458,127 @@ document.write(`
 In other word, we are interested in measuring the structure function of M87*.
 For simplicity, we assume EHT is capable of obtaining an uniform resolution movie.
 We focus on estimating the time structure function for each of the pixel in such movie.</p>
+<section id="definitions">
+<h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
+<p>Suppose we work with a discrete time series <span class="math notranslate nohighlight">\(f_i = f(t_i)\)</span>.
+Let <span class="math notranslate nohighlight">\(\tau_k = t_j - t_i &gt; 0\)</span> be a lag, the (2nd-order) discrete structure function is defined by
+$<span class="math notranslate nohighlight">\(
+SF(\tau_k) = \sum_{i,j}\frac{[f_i - f_j]^2}{n_k},
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>n_k<span class="math notranslate nohighlight">\( is the number of different \)</span>i,j<span class="math notranslate nohighlight">\( pairs.
+Note that this definition does not assume uniform time sampling \)</span>t_i = i\Delta t$.</p>
+<p>Nevertheless, if the function is periodic, uniform time sampling provide the same number of sampling at each lag.</p>
+</section>
+<section id="non-periodic-function">
+<h2>Non-Periodic Function<a class="headerlink" href="#non-periodic-function" title="Permalink to this heading">#</a></h2>
+<p>However, this is not true for non-periodic functions.
+In fact, the number of sampling at each lag decreases as the lag increase.
+To see this, we can simply plot the histogram of the lags.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="n">last</span>  <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">tau</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">last</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n_tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">last</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ti</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">tj</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tj</span> <span class="o">&gt;</span> <span class="n">ti</span><span class="p">:</span>
+                <span class="n">tauk</span> <span class="o">=</span> <span class="n">tj</span> <span class="o">-</span> <span class="n">ti</span>
+                <span class="n">n_tau</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">tauk</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a467f550&gt;]
+</pre></div>
+</div>
+<img alt="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" src="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" />
+</div>
+</div>
+<p>Similar trend appears for non-uniform sampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span><span class="o">*</span><span class="n">N</span><span class="p">)</span>
+
+<span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a472f410&gt;]
+</pre></div>
+</div>
+<img alt="../_images/a6859abc0c7bde56c63c67589b31fd60212ef14c2568e608e2f6dd2c90db2199.png" src="../_images/a6859abc0c7bde56c63c67589b31fd60212ef14c2568e608e2f6dd2c90db2199.png" />
+</div>
+</div>
+</section>
+<section id="golomb-s-ruler">
+<h2>Golomb’s Ruler<a class="headerlink" href="#golomb-s-ruler" title="Permalink to this heading">#</a></h2>
+<p>An optimal structure function sampling would sample each <span class="math notranslate nohighlight">\(tau_k\)</span> the same number of time.
+If we want this number to be just 1, then all we need is Golomb’s Ruler.
+However, there are only 4 perfect rulers exist, with length up to 6.
+As a result, if we need to sample more than 6 different frequecies, there must be “holes” in the sampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">70</span><span class="p">,</span><span class="mi">72</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Order: &#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Length:&#39;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span> <span class="n">n_tau</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s1">&#39;mid&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Order:  11
+Length: 72
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a455cb50&gt;]
+</pre></div>
+</div>
+<img alt="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" src="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" />
+</div>
+</div>
+<p>Obviously, the length of the Golomb’s Ruler grows faster than the square of its order.
+This suggests for a length <span class="math notranslate nohighlight">\(N\)</span>, we need less than <span class="math notranslate nohighlight">\(\sqrt{N}\)</span> sampling to (almost) uniformly sampling the frequency.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orders</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">27</span><span class="p">,</span><span class="mi">28</span><span class="p">])</span>
+<span class="n">lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="mi">72</span><span class="p">,</span><span class="mi">85</span><span class="p">,</span><span class="mi">106</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">151</span><span class="p">,</span><span class="mi">177</span><span class="p">,</span><span class="mi">199</span><span class="p">,</span><span class="mi">216</span><span class="p">,</span><span class="mi">246</span><span class="p">,</span><span class="mi">283</span><span class="p">,</span><span class="mi">333</span><span class="p">,</span><span class="mi">356</span><span class="p">,</span><span class="mi">372</span><span class="p">,</span><span class="mi">425</span><span class="p">,</span><span class="mi">480</span><span class="p">,</span><span class="mi">492</span><span class="p">,</span><span class="mi">553</span><span class="p">,</span><span class="mi">585</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orders</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lengths</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">orders</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="o">*</span><span class="p">(</span><span class="n">orders</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a45b5090&gt;]
+</pre></div>
+</div>
+<img alt="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" src="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" />
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -492,7 +627,22 @@ We focus on estimating the time structure function for each of the pixel in such
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-periodic-function">Non-Periodic Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#golomb-s-ruler">Golomb’s Ruler</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

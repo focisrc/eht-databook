@@ -104,6 +104,21 @@ plt.plot(orders-1, lengths)
 plt.plot(orders-1, 0.7*(orders-1)**2)
 ```
 
-```{code-cell} ipython3
+In fact, if we care about the sampling in log-frequency, the gaps do not really matter.
 
+```{code-cell} ipython3
+def countlog(t):
+    last  = round(np.log2(t[-1]))
+    tau   = 2**np.arange(last+1)
+    n_tau = np.zeros(last+1)
+
+    for ti in t:
+        for tj in t:
+            if tj > ti:
+                tauk = tj - ti
+                n_tau[round(np.log2(tauk))] += 1
+    return tau, n_tau
+
+tau, n_tau = countlog(t)
+plt.step(tau, n_tau, where='mid')
 ```

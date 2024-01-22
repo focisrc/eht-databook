@@ -461,12 +461,13 @@ We focus on estimating the time structure function for each of the pixel in such
 <section id="definitions">
 <h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this heading">#</a></h2>
 <p>Suppose we work with a discrete time series <span class="math notranslate nohighlight">\(f_i = f(t_i)\)</span>.
-Let <span class="math notranslate nohighlight">\(\tau_k = t_j - t_i &gt; 0\)</span> be a lag, the (2nd-order) discrete structure function is defined by
-$<span class="math notranslate nohighlight">\(
+Let <span class="math notranslate nohighlight">\(\tau_k = t_j - t_i &gt; 0\)</span> be a lag, the (2nd-order) discrete structure function is defined by</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1b85ef22-2425-41ae-9f18-1addf5e42016">
+<span class="eqno">(7)<a class="headerlink" href="#equation-1b85ef22-2425-41ae-9f18-1addf5e42016" title="Permalink to this equation">#</a></span>\[\begin{align}
 SF(\tau_k) = \sum_{i,j}\frac{[f_i - f_j]^2}{n_k},
-\)</span><span class="math notranslate nohighlight">\(
-where \)</span>n_k<span class="math notranslate nohighlight">\( is the number of different \)</span>i,j<span class="math notranslate nohighlight">\( pairs.
-Note that this definition does not assume uniform time sampling \)</span>t_i = i\Delta t$.</p>
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n_k\)</span> is the number of different <span class="math notranslate nohighlight">\(i,j\)</span> pairs.
+Note that this definition does not assume uniform time sampling <span class="math notranslate nohighlight">\(t_i = i\Delta t\)</span>.</p>
 <p>Nevertheless, if the function is periodic, uniform time sampling provide the same number of sampling at each lag.</p>
 </section>
 <section id="non-periodic-function">
@@ -506,7 +507,7 @@ To see this, we can simply plot the histogram of the lags.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a467f550&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e3f1ed90&gt;]
 </pre></div>
 </div>
 <img alt="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" src="../_images/9e49d6e7fe93d7c41f22a5ee295583ccfcf85625669b9acee95265de9ca0b3c2.png" />
@@ -523,10 +524,10 @@ To see this, we can simply plot the histogram of the lags.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a472f410&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e3f6c710&gt;]
 </pre></div>
 </div>
-<img alt="../_images/a6859abc0c7bde56c63c67589b31fd60212ef14c2568e608e2f6dd2c90db2199.png" src="../_images/a6859abc0c7bde56c63c67589b31fd60212ef14c2568e608e2f6dd2c90db2199.png" />
+<img alt="../_images/fb4e8e11b9fc45cc527ad1120270a4c3b345a11b994bd529f537bb54b6f226ff.png" src="../_images/fb4e8e11b9fc45cc527ad1120270a4c3b345a11b994bd529f537bb54b6f226ff.png" />
 </div>
 </div>
 </section>
@@ -553,7 +554,7 @@ As a result, if we need to sample more than 6 different frequecies, there must b
 Length: 72
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a455cb50&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e0d0c710&gt;]
 </pre></div>
 </div>
 <img alt="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" src="../_images/506987e26ba726532f64453c1ef9b0c405a3bc6e90b842f78eb683e648fce995.png" />
@@ -572,7 +573,7 @@ This suggests for a length <span class="math notranslate nohighlight">\(N\)</spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f49a45b5090&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f65e0d858d0&gt;]
 </pre></div>
 </div>
 <img alt="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" src="../_images/dab6d707ee31148c0a9fee6fb7fa65eee644bea986cd4d04ff86243bf1eb00c6.png" />

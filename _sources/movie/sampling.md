@@ -25,9 +25,9 @@ We focus on estimating the time structure function for each of the pixel in such
 
 Suppose we work with a discrete time series $f_i = f(t_i)$.
 Let $\tau_k = t_j - t_i > 0$ be a lag, the (2nd-order) discrete structure function is defined by
-$$
+\begin{align}
 SF(\tau_k) = \sum_{i,j}\frac{[f_i - f_j]^2}{n_k},
-$$
+\end{align}
 where $n_k$ is the number of different $i,j$ pairs.
 Note that this definition does not assume uniform time sampling $t_i = i\Delta t$.
 

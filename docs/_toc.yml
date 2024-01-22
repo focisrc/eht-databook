@@ -9,3 +9,4 @@ parts:
   - file: intro/overview
   - file: intro/correlation
   - file: intro/calibration
+  - file: movie/sampling
